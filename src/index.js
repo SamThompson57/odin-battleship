@@ -39,7 +39,7 @@
     ships have been sunk.
 
 3) Create Player.
-*********
+
     a) Players can take turns playing the game by attacking the enemy 
     Gameboard.
 
@@ -49,7 +49,7 @@
     it shouldn’t shoot the same coordinate twice).
 
 4) Create the main game loop and a module for DOM interaction.
-
+*********
     a) At this point it is appropriate to begin crafting your User 
     Interface.
 
