@@ -1,17 +1,20 @@
 const boardLetters = "abcdefghijklmnopqrstuvwxyz".split('')
 
-const playerFactory = () => {
+export const playerFactory = () => {
     // Here we want to put in the actions that the player can take 
+    let playerBoard = null
+    
     let opponentBoard = null // When the game starts they will need to be assigned an opponent to allow them to attack a board
     function takeTurn(attackSquare){
         const coords = attackSquare.split('')
         //Sends an attack to the opponents board
         opponentBoard.recieveAttack(Number(coords[1]), boardLetters.indexOf(coords[0]))
     }
-    return {takeTurn, opponentBoard}
+    return {takeTurn, opponentBoard, playerBoard}
 }
 
-const cpuFactory = (height, width) => {
+export const cpuFactory = (height, width) => {
+    let playerBoard = null
     let opponentBoard = null
     function buildTargets(){
         let boardMap = []
@@ -29,5 +32,5 @@ const cpuFactory = (height, width) => {
         opponentBoard.recieveAttack(Number(coords[1]), boardLetters.indexOf(coords[0]))
         availibleTargets.splice(rndindex, 1)
     }
-    return {takeTurn, opponentBoard}
+    return {takeTurn, opponentBoard, playerBoard}
 }

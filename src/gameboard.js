@@ -1,6 +1,6 @@
 import shipFactory from "./ship"
 
-const boardLetters = "abcdefghijklmnopqrstuvwxyz".split('')
+export const boardLetters = "abcdefghij".split('')
 
 class Space {
     constructor(location){

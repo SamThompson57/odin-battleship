@@ -1,0 +1,27 @@
+.board{
+    margin: auto;
+    display: grid;
+    width: 500px;
+    height: 500px;
+    grid-template-columns: 15px repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.board > div{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.dark {
+    background-color: lightsteelblue;
+}
+
+.col{
+    text-align: center;
+}
+
+.row{
+    text-align: center;
+    margin-top: 100%;
+}
