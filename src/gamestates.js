@@ -1,5 +1,6 @@
 import boardFactory from "./gameboard"
 import { cpuFactory, playerFactory } from "./player"
+import shipFactory from "./ship"
 
 const gameState = (bCPU, height, width, shipArr) => {
     const playerA = playerFactory()
@@ -16,7 +17,19 @@ const gameState = (bCPU, height, width, shipArr) => {
     function announceWinner() {
         //Announce Winner
     }
-    // Anounce Winner
+
+    // **** START OF THE PLACE SHIP SECTION ******
+
+    //Player A places his ships
+    playerA.playerBoard.placeShip(shipFactory(shipArr[0]), 1, 1, true, 'A') // place A ship on e3
+
+    //Player B places their ships if they are human, if they are CPU they do it random
+    playerB.playerBoard.placeShip(shipFactory(shipArr[0]), 5, 5, false, null) // Place B ship on b3 
+
+    mainState = true
+
+    // ***** END OF THE PLACE SHIP SECTION *****
+
     return {playerA, playerB, mainState, announceWinner}
 }
 

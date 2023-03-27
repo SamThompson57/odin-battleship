@@ -1,19 +1,34 @@
-import createBoard from "./domboard"
+import createBoard from "./domboard.js"
+import gameState from "./gamestates.js"
+
+
+
 
 const content = document.getElementById('content')
 
-const board = createBoard()
-const board2 = createBoard()
+const playerAContainer = document.createElement('div')
+playerAContainer.setAttribute('id', 'playerB')
+
+const playerBContainer = document.createElement('div')
+playerBContainer.setAttribute('id','playerA')
+
+const boardB = createBoard('B', 10, 10, 'red') /// this should be done based on the player actions.
+const boardA = createBoard('A', 10, 10, 'dark')
 
 
-content.appendChild(board)
-content.appendChild(board2)
+content.appendChild(playerBContainer)
+content.appendChild(playerAContainer)
+
+playerAContainer.appendChild(boardA)
+playerBContainer.appendChild(boardB)
+
+export let currentGame = gameState(true, 10, 10, [4])
 
 
 /* TASK LIST
 
 4) Create the main game loop and a module for DOM interaction.
-*********
+
     a) At this point it is appropriate to begin crafting your User 
     Interface.
 
@@ -25,7 +40,7 @@ content.appendChild(board2)
     c) We’ll leave the HTML implementation up to you for now, but you 
     should display both the player’s boards and render them using 
     information from the Gameboard class.
-        
+ *********       
         i) You need methods to render the gameboards and to take user 
         input for attacking. For attacks, let the user click on a 
         coordinate in the enemy Gameboard.

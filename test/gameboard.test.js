@@ -11,7 +11,9 @@ test('Create Board', () => {
 test('Place Ship', () => {
     const testBoard = boardFactory(5,5)
     testBoard.placeShip(shipFactory(2), 0, 0, false)
-    expect(testBoard.board[0][0].contains).not.toBeNull()
+    
+
+    expect(testBoard.placeShip(shipFactory(2), 5, 5, false)).toBe(false)
     expect(testBoard.board[0][1].contains).not.toBeNull()
     expect(testBoard.board[0][2].contains).toBeNull()
 })

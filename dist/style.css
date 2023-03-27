@@ -1,6 +1,7 @@
 .board{
     margin: auto;
     display: grid;
+    padding-top: 50px ;
     width: 500px;
     height: 500px;
     grid-template-columns: 15px repeat(10, 1fr);
@@ -14,11 +15,19 @@
 }
 
 .dark {
-    background-color: lightsteelblue;
+    background-color: lightblue;
+}
+
+.red {
+    background-color: lightcoral;
 }
 
 .col{
     text-align: center;
+}
+
+.ship{
+    background-color: grey;
 }
 
 .row{
