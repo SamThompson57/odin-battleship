@@ -5,10 +5,10 @@ export const playerFactory = () => {
     let playerBoard = null
     
     let opponentBoard = null // When the game starts they will need to be assigned an opponent to allow them to attack a board
-    function takeTurn(attackSquare){
-        const coords = attackSquare.split('')
+    function takeTurn(x, y, targetPlayer){
+        console.log(x)
         //Sends an attack to the opponents board
-        return this.opponentBoard.receiveAttack(Number(coords[1]), boardLetters.indexOf(coords[0]))
+        return this.opponentBoard.receiveAttack(boardLetters.indexOf(x), y, targetPlayer)
     }
     return {takeTurn, opponentBoard, playerBoard}
 }
@@ -30,7 +30,7 @@ export const cpuFactory = (height, width) => {
         const rndindex = Math.floor(Math.random() * availibleTargets.length)
         const coords = availibleTargets[rndindex].split('')
         availibleTargets.splice(rndindex, 1)
-        return this.opponentBoard.receiveAttack(coords[1]-1, boardLetters.indexOf(coords[0])) 
+        return this.opponentBoard.receiveAttack(coords[1]-1, boardLetters.indexOf(coords[0]), 'A') 
     }
     return {takeTurn, opponentBoard, playerBoard, availibleTargets}
 }

@@ -58,20 +58,28 @@ const boardFactory = (width, height) => {
         return false
     }
 
-    function receiveAttack(y , x) {
-        if(this.board[y] === undefined || this.board[y][x] === undefined)return 'square does not exist'
+    function receiveAttack(x , y, target) {
+        console.log(`Y: ${y}, X: ${x}, Target: ${target}`)
+        if(this.board[y] === undefined || this.board[y][x] === undefined)return '404'
         if(!this.board[y][x].targetable) return 'Already Shot here'
         this.board[y][x].targetable = false
         this.attackedSpaces.push(this.board[y][x])
         if(this.board[y][x].contains) {
             this.board[y][x].contains.hit()
+            
+            const hit = document.createElement('img')
+            document.getElementById(`${boardLetters[x]}${y}${target}`).appendChild(hit)
+            hit.src = '../img/hit.png'
             if(this.board[y][x].contains.isSunk()) {
                 this.sunkShips ++
                 return 'SHIP SUNK'
              } // Add the noShipsLeft check here
             return 'HIT'
         }
-        console.log(this.board)
+        // Add the drawing for miss marker here
+        const miss = document.createElement('img')
+        document.getElementById(`${boardLetters[x]}${y}${target}`).appendChild(miss)
+        miss.src = '../img/close-box.png'
         return 'MISS'
     }
 

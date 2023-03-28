@@ -21,7 +21,7 @@ const gameState = (bCPU, height, width, shipArr) => {
     // **** START OF THE PLACE SHIP SECTION ******
 
     //Player A places his ships
-    playerA.playerBoard.placeShip(shipFactory(shipArr[0]), 1, 1, true, 'A') // place A ship on e3
+    playerA.playerBoard.placeShip(shipFactory(shipArr[0]), 3, 5, true, 'A') // place A ship on e3
 
     //Player B places their ships if they are human, if they are CPU they do it random
     playerB.playerBoard.placeShip(shipFactory(shipArr[0]), 5, 5, false, null) // Place B ship on b3 
