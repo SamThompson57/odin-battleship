@@ -20,8 +20,10 @@ const gameState = (bCPU, height, width, shipArr) => {
 
     // **** START OF THE PLACE SHIP SECTION ******
 
+    // !!! Need this to be called with the board squares e.g. b3
+
     //Player A places his ships
-    playerA.playerBoard.placeShip(shipFactory(shipArr[0]), 3, 5, true, 'A') // place A ship on e3
+    playerA.playerBoard.placeShip(shipFactory(shipArr[0]), 1, 0, true, 'A') // place A ship on e3
 
     //Player B places their ships if they are human, if they are CPU they do it random
     playerB.playerBoard.placeShip(shipFactory(shipArr[0]), 5, 5, false, null) // Place B ship on b3 
@@ -30,7 +32,17 @@ const gameState = (bCPU, height, width, shipArr) => {
 
     // ***** END OF THE PLACE SHIP SECTION *****
 
-    return {playerA, playerB, mainState, announceWinner}
+    let playerATurn = true
+
+    function nextTurn() {
+        console.log('next turn')
+        playerATurn = !playerATurn
+        if (!playerATurn && bCPU){
+            playerB.takeTurn()
+        }
+    }
+
+    return {playerA, playerB, mainState, announceWinner, nextTurn}
 }
 
 export default gameState

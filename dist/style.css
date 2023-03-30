@@ -41,3 +41,8 @@ img {
     margin: auto;
     display: block;
 }
+
+#announcer{
+    color: red;
+    text-align: center;
+}

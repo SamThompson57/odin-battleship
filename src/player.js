@@ -1,3 +1,5 @@
+import { currentGame } from "."
+
 const boardLetters = "abcdefghijklmnopqrstuvwxyz".split('')
 
 export const playerFactory = () => {
@@ -30,7 +32,11 @@ export const cpuFactory = (height, width) => {
         const rndindex = Math.floor(Math.random() * availibleTargets.length)
         const coords = availibleTargets[rndindex].split('')
         availibleTargets.splice(rndindex, 1)
-        return this.opponentBoard.receiveAttack(coords[1]-1, boardLetters.indexOf(coords[0]), 'A') 
+        const cordOfY = coords.slice(1).join('')
+        const cordOfX = boardLetters.indexOf(coords[0])
+        const status = this.opponentBoard.receiveAttack( cordOfX, cordOfY, 'A')
+        currentGame.nextTurn()
+        return status
     }
     return {takeTurn, opponentBoard, playerBoard, availibleTargets}
 }

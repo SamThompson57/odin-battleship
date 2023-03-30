@@ -1,10 +1,13 @@
 import createBoard from "./domboard.js"
 import gameState from "./gamestates.js"
 
-
-
-
 const content = document.getElementById('content')
+
+const anouncer = document.createElement('div')
+anouncer.setAttribute('id', 'announcer')
+content.appendChild(anouncer)
+
+anouncer.textContent = 'Select a square to attack'
 
 const playerAContainer = document.createElement('div')
 playerAContainer.setAttribute('id', 'playerB')
@@ -40,16 +43,16 @@ export let currentGame = gameState(true, 10, 10, [4])
     c) We’ll leave the HTML implementation up to you for now, but you 
     should display both the player’s boards and render them using 
     information from the Gameboard class.
- *********       
+ 
         i) You need methods to render the gameboards and to take user 
         input for attacking. For attacks, let the user click on a 
         coordinate in the enemy Gameboard.
-
+   
     d) The game loop should step through the game turn by turn using only 
     methods from other objects. If at any point you are tempted to write 
     a new function inside the game loop, step back and figure out which 
     class or module that function should belong to.
-
+ *********   
     e) Create conditions so that the game ends once one players ships 
     have all been sunk. This function is appropriate for the Game module.
     

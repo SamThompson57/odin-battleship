@@ -42,7 +42,7 @@ const boardFactory = (width, height) => {
         for(let i =0; i < ship.length; i ++){
             this.board[yStart + (yAdd * i)][xStart + (xAdd * i)-1].contains = ship
             if(player){
-                const shipSquare = document.getElementById(`${boardLetters[xStart + (xAdd * i)-1]}${yStart + (yAdd * i)}${player}`)
+                const shipSquare = document.getElementById(`${boardLetters[xStart + (xAdd * i)-1]}${yStart + (yAdd * i)+1}${player}`)
                 shipSquare.setAttribute('class','ship')
             }
             
@@ -60,17 +60,17 @@ const boardFactory = (width, height) => {
 
     function receiveAttack(x , y, target) {
         console.log(`Y: ${y}, X: ${x}, Target: ${target}`)
-        if(this.board[y] === undefined || this.board[y][x] === undefined)return '404'
-        if(!this.board[y][x].targetable) return 'Already Shot here'
-        this.board[y][x].targetable = false
-        this.attackedSpaces.push(this.board[y][x])
-        if(this.board[y][x].contains) {
-            this.board[y][x].contains.hit()
+        if(this.board[y-1] === undefined || this.board[y-1][x] === undefined)return false
+        if(!this.board[y-1][x].targetable) return false
+        this.board[y-1][x].targetable = false
+        this.attackedSpaces.push(this.board[y-1][x])
+        if(this.board[y-1][x].contains) {
+            this.board[y-1][x].contains.hit()
             
             const hit = document.createElement('img')
             document.getElementById(`${boardLetters[x]}${y}${target}`).appendChild(hit)
             hit.src = '../img/hit.png'
-            if(this.board[y][x].contains.isSunk()) {
+            if(this.board[y-1][x].contains.isSunk()) {
                 this.sunkShips ++
                 return 'SHIP SUNK'
              } // Add the noShipsLeft check here

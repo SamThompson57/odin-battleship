@@ -29,8 +29,9 @@ function createBoard(owningPlayer, height, width){
                 const row = coordinates.splice(1).join('')
                 const collum = coordinates[0]
                 if (player === 'B'){
-                    console.log(`Attacking ${collum+row}`)
-                    console.log(currentGame.playerA.takeTurn(collum, row, player))
+                    const status = currentGame.playerA.takeTurn(collum, row, player)
+                    console.log(`STATUS: ${status}`)
+                    if (status) currentGame.nextTurn()
                 } 
                 
 
