@@ -23,16 +23,19 @@ function createBoard(owningPlayer, height, width){
             board.appendChild(square)
             
             square.onclick = () => {
-                console.log(square.id)
-                let coordinates = square.id.split('')
-                const player = coordinates.splice(-1).join('')
-                const row = coordinates.splice(1).join('')
-                const collum = coordinates[0]
-                if (player === 'B'){
-                    const status = currentGame.playerA.takeTurn(collum, row, player)
-                    console.log(`STATUS: ${status}`)
-                    if (status) currentGame.nextTurn()
-                } 
+                if (currentGame.mainState === true){
+                    console.log(square.id)
+                    let coordinates = square.id.split('')
+                    const player = coordinates.splice(-1).join('')
+                    const row = coordinates.splice(1).join('')
+                    const collum = coordinates[0]
+                    if (player === 'B'){
+                        const status = currentGame.playerA.takeTurn(collum, row, player)
+                        console.log(`STATUS: ${status}`)
+                        if (status) currentGame.nextTurn()
+                    } 
+                }
+                
                 
 
             }

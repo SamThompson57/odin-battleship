@@ -1,4 +1,6 @@
 import { currentGame } from "."
+import { arrToCoord } from "./coordConverter"
+import shipFactory from "./ship"
 
 const boardLetters = "abcdefghijklmnopqrstuvwxyz".split('')
 
@@ -38,5 +40,30 @@ export const cpuFactory = (height, width) => {
         currentGame.nextTurn()
         return status
     }
-    return {takeTurn, opponentBoard, playerBoard, availibleTargets}
+    function placeOwnShips(shipArray){
+        console.log(shipArray)
+        let allSpaces = []
+        let horrSpaces = availibleTargets
+        let vertSpaces = availibleTargets 
+        allSpaces.push(horrSpaces)
+        allSpaces.push(vertSpaces)
+        shipArray.forEach(shipElement => {
+            let shipPlaced = false
+            while(!shipPlaced){
+                const alignment = Math.floor(Math.random() * 2)
+                const rndindex = Math.floor(Math.random() * allSpaces[alignment].length)
+
+                /*const coords = allSpaces[alignment][rndindex]
+                allSpaces[alignment].splice(rndindex, 1)
+                const cordOfY = coords[y]
+                const cordOfX = boardLetters.indexOf(coords[0])
+                */
+                if(this.playerBoard.placeShip(shipFactory(shipElement), allSpaces[alignment][rndindex], alignment, 'B')) shipPlaced = true
+                
+                // placeShip(ship, xStart, yStart, vertical, player)
+                console.log(shipPlaced)
+            }
+        });
+    }
+    return {takeTurn, opponentBoard, playerBoard, availibleTargets, placeOwnShips}
 }

@@ -1,3 +1,5 @@
+import { currentGame } from "."
+import { arrToCoord, coordToArr } from "./coordConverter"
 import shipFactory from "./ship"
 
 export const boardLetters = "abcdefghij".split('')
@@ -28,22 +30,36 @@ const boardFactory = (width, height) => {
     let totalShips = 0
     let sunkShips = 0
 
-    function placeShip(ship, xStart, yStart, vertical, player) {
+    function placeShip(ship, coord, vertical, player) {
+        console.log(coord)
+        const coordArr = coordToArr(coord)
+        console.log(coordArr)
+        const yStart = coordArr[0]
+        const xStart = coordArr[1]
         let xAdd = 0
         let yAdd = 0
-        if(vertical) {yAdd = 1}
+        if(vertical > 0) {yAdd = 1}
         else {xAdd = 1}
-
+        
         //Check if the placement is legal (Not able to place ships in no empty or non existenet squares)
-        for(let i =0; i < ship.length; i ++){
-            if ((this.board[yStart + (yAdd * i)] === undefined || this.board[yStart + (yAdd * i)][xStart + (xAdd * i)] === undefined) || this.board[yStart + (yAdd * i)][xStart + (xAdd * i)].contains !== null) return false;
+        for(let i = 0; i < ship.length; i ++){
+            if (this.board[yStart + (yAdd * i)] === undefined || this.board[yStart + (yAdd * i)][xStart + (xAdd * i)] === undefined) {
+                console.log('Illegal placement: Undefined Space')
+                return false;
+            }
+            if (this.board[yStart + (yAdd * i)][xStart + (xAdd * i)].contains != null){
+                console.log('Illegal placement: Space occupied')
+                return false;
+            }
+        
         }
 
-        for(let i =0; i < ship.length; i ++){
-            this.board[yStart + (yAdd * i)][xStart + (xAdd * i)-1].contains = ship
-            if(player){
-                const shipSquare = document.getElementById(`${boardLetters[xStart + (xAdd * i)-1]}${yStart + (yAdd * i)+1}${player}`)
+        for(let i = 0; i < ship.length; i ++){
+            this.board[yStart + (yAdd * i)][xStart + (xAdd * i)].contains = ship
+            if(player === 'A'){
+                const shipSquare = document.getElementById(`${boardLetters[xStart + (xAdd * i)]}${yStart+(yAdd * i)+1}${player}`)
                 shipSquare.setAttribute('class','ship')
+                // Drawing needed to draw physical ships on the board
             }
             
         }
@@ -59,7 +75,7 @@ const boardFactory = (width, height) => {
     }
 
     function receiveAttack(x , y, target) {
-        console.log(`Y: ${y}, X: ${x}, Target: ${target}`)
+        if (currentGame.gameOver === true) return false
         if(this.board[y-1] === undefined || this.board[y-1][x] === undefined)return false
         if(!this.board[y-1][x].targetable) return false
         this.board[y-1][x].targetable = false
@@ -72,6 +88,12 @@ const boardFactory = (width, height) => {
             hit.src = '../img/hit.png'
             if(this.board[y-1][x].contains.isSunk()) {
                 this.sunkShips ++
+                if (this.noShipsLeft()){
+                    currentGame.gameOver = true
+                    document.getElementById('announcer').textContent = 'GAME OVER'
+                    currentGame.announceWinner(target)
+                    return 'GAME OVER'
+                }
                 return 'SHIP SUNK'
              } // Add the noShipsLeft check here
             return 'HIT'

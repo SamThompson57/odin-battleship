@@ -12,10 +12,14 @@ const gameState = (bCPU, height, width, shipArr) => {
     playerA.opponentBoard = playerB.playerBoard
     playerB.opponentBoard = playerA.playerBoard
 
-    let mainState = false 
+    let mainState = false
+    let gameOver = false 
     
-    function announceWinner() {
-        //Announce Winner
+    function announceWinner(loser) {
+        console.log(mainState)
+        if (loser === 'A') console.log ('Player B Wins')
+        else console.log('Player A wins')
+        //NEED TO NOW CREATE A STATE THAT STOPS PEOPLE FROM HITTING ANY MORE BUTTONS
     }
 
     // **** START OF THE PLACE SHIP SECTION ******
@@ -23,10 +27,13 @@ const gameState = (bCPU, height, width, shipArr) => {
     // !!! Need this to be called with the board squares e.g. b3
 
     //Player A places his ships
-    playerA.playerBoard.placeShip(shipFactory(shipArr[0]), 1, 0, true, 'A') // place A ship on e3
-
-    //Player B places their ships if they are human, if they are CPU they do it random
-    playerB.playerBoard.placeShip(shipFactory(shipArr[0]), 5, 5, false, null) // Place B ship on b3 
+    playerA.playerBoard.placeShip(shipFactory(shipArr[0]), 'a1', 1, 'A') // place A ship on e3
+    playerA.playerBoard.placeShip(shipFactory(shipArr[1]), 'b1', 1, 'A')
+    playerA.playerBoard.placeShip(shipFactory(shipArr[2]), 'c1', 1, 'A')
+    playerA.playerBoard.placeShip(shipFactory(shipArr[3]), 'd1', 1, 'A')
+    playerA.playerBoard.placeShip(shipFactory(shipArr[4]), 'j1', 1, 'A')
+    // Player B places their ships if they are human, if they are CPU they do it random
+    playerB.placeOwnShips(shipArr) // Place B ship on b3 
 
     mainState = true
 
@@ -35,6 +42,7 @@ const gameState = (bCPU, height, width, shipArr) => {
     let playerATurn = true
 
     function nextTurn() {
+        if (this.gameOver)return
         console.log('next turn')
         playerATurn = !playerATurn
         if (!playerATurn && bCPU){
@@ -42,7 +50,7 @@ const gameState = (bCPU, height, width, shipArr) => {
         }
     }
 
-    return {playerA, playerB, mainState, announceWinner, nextTurn}
+    return {playerA, playerB, mainState, announceWinner, nextTurn, gameOver}
 }
 
 export default gameState
