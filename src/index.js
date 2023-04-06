@@ -1,3 +1,4 @@
+import { announceUpdate } from "./anounce.js"
 import createBoard from "./domboard.js"
 import gameState from "./gamestates.js"
 
@@ -7,7 +8,7 @@ const anouncer = document.createElement('div')
 anouncer.setAttribute('id', 'announcer')
 content.appendChild(anouncer)
 
-anouncer.textContent = 'Select a square to attack'
+
 
 const playerAContainer = document.createElement('div')
 playerAContainer.setAttribute('id', 'playerB')
@@ -26,7 +27,7 @@ playerAContainer.appendChild(boardA)
 playerBContainer.appendChild(boardB)
 
 export let currentGame = gameState(true, 10, 10, [5, 4 , 3 , 3 , 2 ])
-
+announceUpdate()
 
 /* TASK LIST
 
