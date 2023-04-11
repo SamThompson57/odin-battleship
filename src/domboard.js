@@ -50,11 +50,16 @@ function createBoard(owningPlayer, height, width){
                     if (player === 'B'){
                         const status = currentGame.playerA.takeTurn(collum, row, player)
                         console.log(`STATUS: ${status}`)
-                        if (status) currentGame.nextTurn()
+                        if (status) {
+                            const plyrA = document.getElementById('plyrA')
+                            plyrA.textContent = `Player A: ${collum + row} - ${status}`
+                            currentGame.nextTurn()
+                        }
                     } 
                 }
                 else if (player === 'A'){
                     currentGame.playerA.playerBoard.placeShip(shipFactory(currentGame.shipArr[currentGame.playerA.playerBoard.totalShips]), collum+row, placeDirection, 'A' )
+                    
                     if (currentGame.playerA.playerBoard.totalShips >= currentGame.shipArr.length) currentGame.mainState = true
                 }
                 announceUpdate()

@@ -37,6 +37,8 @@ export const cpuFactory = (height, width) => {
         const cordOfY = coords.slice(1).join('')
         const cordOfX = boardLetters.indexOf(coords[0])
         const status = this.opponentBoard.receiveAttack( cordOfX, cordOfY, 'A')
+        const plyrB = document.getElementById('plyrB')
+        plyrB.textContent = `Player B: ${boardLetters[cordOfX] + cordOfY} - ${status}`
         currentGame.nextTurn()
         return status
     }
